@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+<body>
+<header class="navbar navber-fixed-top navbar-inverse">
+  <div class="containar-fluid">
+  <div class="navbar-brand navbar-left" style="color:#fff">Bookers</div>
+  <div class="collapse navbar-collapse">
+<ul class="navbar-nav navbar-right">
+<% if user_signed_in? %>
+
+  <li class="nav-item">
+    <%= link_to user_path(current_user.id), :class=>"nav-font" do %>
+    <span class="glyphicon glyphicon-home" aria-hidden="true">&nbsp;Home</span>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to users_path, :class=>"nav-font" do %>
+    <span class="glyphicon glyphicon-user" aria-hidden="true">&nbsp;Users</span>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to books_path, :class=>"nav-font" do %>
+    <span class="glyphicon glyphicon-book" aria-hidden="true">&nbsp;Books</span>
+    <% end %>
+  </li>
+  <li class="nav-item">
+   <%= link_to destroy_user_session_path, :class=>"nav-font", method: :delete do %>
+   <span class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;logout</span>
+   <% end %>
+  </li>
+
+  <% else %>
+  <li class="nav-item">
+    <%= link_to root_path, :class=>"nav-font" do %>
+    <span class="glyphicon glyphicon-home" aria-hidden="true">&nbsp;Home</span>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to home_about_path, :class=>"nav-font" do %>
+    <span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;About</span>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to new_user_registration_path, :class=>"nav-font" do %>
+    <span class="glyphicon glyphicon-edit" aria-hidden="true">&nbsp;sign up</span>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to new_user_session_path, :class=>"nav-font" do %>
+    <span class="glyphicon glyphicon-log-in" aria-hidden="true">&nbsp;login</span>
+    <% end %>
+  </li>
+  <% end %>
+</ul>
+</div>
+</header>
+<%= yield %>
+<footer>
+ <P>CopyRight Infratop.inc</P>
+</footer>
+</div>
+</body>
+</html>
+

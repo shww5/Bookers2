@@ -1,0 +1,633 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ bin/rails:9
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ bin/rails:9
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to DeviseCreateUsers (20200316050052)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200316050052_devise_create_users.rb:5
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  ↳ db/migrate/20200316050052_devise_create_users.rb:39
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  ↳ db/migrate/20200316050052_devise_create_users.rb:40
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200316050052"]]
+  ↳ bin/rails:9
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateBooks (20200316065810)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "Title" varchar, "Opinion" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200316065810_create_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200316065810"]]
+  ↳ bin/rails:9
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to RenameTitleColumnToBooks (20200316071850)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abooks" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "Opinion" text DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200316071850_rename_title_column_to_books.rb:3
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "abooks" ("id","title","Opinion","created_at","updated_at")
+                     SELECT "id","Title","Opinion","created_at","updated_at" FROM "books"[0m
+  ↳ db/migrate/20200316071850_rename_title_column_to_books.rb:3
+  [1m[35m (2.1ms)[0m  [1m[35mDROP TABLE "books"[0m
+  ↳ db/migrate/20200316071850_rename_title_column_to_books.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "Opinion" text DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200316071850_rename_title_column_to_books.rb:3
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "books" ("id","title","Opinion","created_at","updated_at")
+                     SELECT "id","title","Opinion","created_at","updated_at" FROM "abooks"[0m
+  ↳ db/migrate/20200316071850_rename_title_column_to_books.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "abooks"[0m
+  ↳ db/migrate/20200316071850_rename_title_column_to_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200316071850"]]
+  ↳ bin/rails:9
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to RenameOpinionColumnToBooks (20200316071918)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abooks" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200316071918_rename_opinion_column_to_books.rb:3
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "abooks" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","Opinion","created_at","updated_at" FROM "books"[0m
+  ↳ db/migrate/20200316071918_rename_opinion_column_to_books.rb:3
+  [1m[35m (2.5ms)[0m  [1m[35mDROP TABLE "books"[0m
+  ↳ db/migrate/20200316071918_rename_opinion_column_to_books.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "body" text DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200316071918_rename_opinion_column_to_books.rb:3
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "books" ("id","title","body","created_at","updated_at")
+                     SELECT "id","title","body","created_at","updated_at" FROM "abooks"[0m
+  ↳ db/migrate/20200316071918_rename_opinion_column_to_books.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "abooks"[0m
+  ↳ db/migrate/20200316071918_rename_opinion_column_to_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200316071918"]]
+  ↳ bin/rails:9
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to AddColumnBooks (20200316075514)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE "books" ADD "user_id" integer[0m
+  ↳ db/migrate/20200316075514_add_column_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (3.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200316075514"]]
+  ↳ bin/rails:9
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to AddIntroductionToUsers (20200318093521)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (2.9ms)[0m  [1m[35mALTER TABLE "users" ADD "introduction" text[0m
+  ↳ db/migrate/20200318093521_add_introduction_to_users.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "profile_image_id" varchar[0m
+  ↳ db/migrate/20200318093521_add_introduction_to_users.rb:4
+  [1m[36mActiveRecord::SchemaMigration Create (2.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200318093521"]]
+  ↳ bin/rails:9
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Create (3.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-25 07:37:09.279130"], ["updated_at", "2020-03-25 07:37:09.279130"]]
+  ↳ bin/rails:9
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Started POST "/users" for 10.0.2.2 at 2020-03-25 07:39:44 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HWoLQntJm1ucsJR+ghMr962OcaMx+hgmfwxFoxCZpNg/u0zp3qqzKCwPYZGHJvvZnKH3gsNaBvV7yrzHztEksg==", "user"=>{"name"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 18ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (5.2.4.1) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (5.2.4.1) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+devise (4.7.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (5.2.4.1) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:426:in `block in make_lambda'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (5.2.4.1) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:513:in `block in invoke_before'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:513:in `each'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:513:in `invoke_before'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.2.4.1) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (5.2.4.1) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (5.2.4.1) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (5.2.4.1) lib/active_support/notifications.rb:168:in `block in instrument'
+activesupport (5.2.4.1) lib/active_support/notifications/instrumenter.rb:23:in `instrument'
+activesupport (5.2.4.1) lib/active_support/notifications.rb:168:in `instrument'
+actionpack (5.2.4.1) lib/action_controller/metal/instrumentation.rb:32:in `process_action'
+actionpack (5.2.4.1) lib/action_controller/metal/params_wrapper.rb:256:in `process_action'
+activerecord (5.2.4.1) lib/active_record/railties/controller_runtime.rb:24:in `process_action'
+actionpack (5.2.4.1) lib/abstract_controller/base.rb:134:in `process'
+actionview (5.2.4.1) lib/action_view/rendering.rb:32:in `process'
+actionpack (5.2.4.1) lib/action_controller/metal.rb:191:in `dispatch'
+actionpack (5.2.4.1) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (5.2.4.1) lib/action_dispatch/routing/route_set.rb:52:in `dispatch'
+actionpack (5.2.4.1) lib/action_dispatch/routing/route_set.rb:34:in `serve'
+actionpack (5.2.4.1) lib/action_dispatch/routing/mapper.rb:18:in `block in <class:Constraints>'
+actionpack (5.2.4.1) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (5.2.4.1) lib/action_dispatch/journey/router.rb:52:in `block in serve'
+actionpack (5.2.4.1) lib/action_dispatch/journey/router.rb:35:in `each'
+actionpack (5.2.4.1) lib/action_dispatch/journey/router.rb:35:in `serve'
+actionpack (5.2.4.1) lib/action_dispatch/routing/route_set.rb:840:in `call'
+warden (1.2.8) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.8) lib/warden/manager.rb:34:in `catch'
+warden (1.2.8) lib/warden/manager.rb:34:in `call'
+rack (2.2.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.2) lib/rack/head.rb:12:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/cookies.rb:670:in `call'
+activerecord (5.2.4.1) lib/active_record/migration.rb:559:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:22:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.1) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.1) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.1) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.1) lib/rails/engine.rb:524:in `call'
+puma (3.12.4) lib/puma/configuration.rb:227:in `call'
+puma (3.12.4) lib/puma/server.rb:675:in `handle_request'
+puma (3.12.4) lib/puma/server.rb:476:in `process_client'
+puma (3.12.4) lib/puma/server.rb:334:in `block in run'
+puma (3.12.4) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/" for 10.0.2.2 at 2020-03-25 07:39:47 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.5ms)
+  Rendered homes/top.html.erb within layouts/application (4.8ms)
+Started GET "/" for 10.0.2.2 at 2020-03-25 07:39:51 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (1.2ms)
+  Rendered homes/top.html.erb within layouts/application (8.9ms)
+Completed 200 OK in 4584ms (Views: 4577.7ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 612ms (Views: 597.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 10.0.2.2 at 2020-03-25 07:39:57 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.6ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (33.6ms)
+Completed 200 OK in 210ms (Views: 182.4ms | ActiveRecord: 3.1ms)
+
+
+Started POST "/users/sign_in" for 10.0.2.2 at 2020-03-25 07:39:59 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"F17Cdsqi2xj1SaRHJh7yLfyQTT8xVH/S04/CdBLRALoGbSMFAUtk+yV9v11DZK5uj6M63DN4srX/jycwDtm4Ag==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."name" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["name", "gcbas1313@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 13ms (ActiveRecord: 0.7ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"F17Cdsqi2xj1SaRHJh7yLfyQTT8xVH/S04/CdBLRALoGbSMFAUtk+yV9v11DZK5uj6M63DN4srX/jycwDtm4Ag==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (11.8ms)
+Completed 200 OK in 378ms (Views: 216.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 10.0.2.2 at 2020-03-25 07:40:03 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"V4ODPqEnsjrD510Ov1yUGdXw1jhPHko8H/vwprm0pMy8aPUTO8a/HLqXZvIAXzZrY2Lr62s5otSFBgh2WtGmiw==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."name" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["name", "gcbas1313@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 11ms (ActiveRecord: 2.4ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"V4ODPqEnsjrD510Ov1yUGdXw1jhPHko8H/vwprm0pMy8aPUTO8a/HLqXZvIAXzZrY2Lr62s5otSFBgh2WtGmiw==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (9.7ms)
+Completed 200 OK in 315ms (Views: 180.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 10.0.2.2 at 2020-03-25 07:40:09 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ZDJMRgMqwrduW8FEtKMAS/3VcdBn/psRObMVmeHmaamP2TprmcvPkRcr+rgLoKI5S0dMA0PZc/mjTu1JAoNr7g==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."name" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["name", "gcbas1313@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 7ms (ActiveRecord: 1.0ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ZDJMRgMqwrduW8FEtKMAS/3VcdBn/psRObMVmeHmaamP2TprmcvPkRcr+rgLoKI5S0dMA0PZc/mjTu1JAoNr7g==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (9.3ms)
+Completed 200 OK in 322ms (Views: 166.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 10.0.2.2 at 2020-03-25 07:40:14 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"OHdFe6gB4LNza3PA7EemkOE+EfbE6hjqpwRd8v25U73TnDNWMuDtlQobSDxTRATiV6wsJeDN8AI9+aUiHtxR+g==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."name" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["name", "gcbas1313@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.6ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"OHdFe6gB4LNza3PA7EemkOE+EfbE6hjqpwRd8v25U73TnDNWMuDtlQobSDxTRATiV6wsJeDN8AI9+aUiHtxR+g==", "user"=>{"name"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.1ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (8.0ms)
+Completed 200 OK in 326ms (Views: 179.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 10.0.2.2 at 2020-03-25 07:40:15 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (3.3ms)
+  Rendered devise/shared/_links.html.erb (1.5ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (39.4ms)
+Completed 200 OK in 175ms (Views: 173.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 10.0.2.2 at 2020-03-25 07:40:31 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JckfKxQYpkTogTQIvLWXjXECHAJa76nRqJWJfcOfke3xlvJrCK9PP1ilvUQlCdD7y3FN3ubCtNLB22Qfy3doLA==", "user"=>{"name"=>"sh5", "email"=>"gcbas1313@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gcbas1313@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Create (3.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "name", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["email", "gcbas1313@gmail.com"], ["encrypted_password", "$2a$11$LkxxWbqIPtoWND3WMUMec.9pWUdry7UceBXhwY7ekGmPxBvk6M.Bu"], ["name", "sh5"], ["created_at", "2020-03-25 07:40:31.195502"], ["updated_at", "2020-03-25 07:40:31.195502"]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 163ms (ActiveRecord: 7.1ms)
+
+
+Started GET "/users/sign_up" for 10.0.2.2 at 2020-03-25 07:43:13 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::RegistrationsController#new as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Redirected to http://localhost:3000/users/1
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 22ms (ActiveRecord: 0.7ms)
+
+
+Started GET "/users/1" for 10.0.2.2 at 2020-03-25 07:43:13 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8
+  Rendering users/show.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (1.1ms)
+  Rendered users/_side.html.erb (8.8ms)
+  [1m[36mBook Load (0.6ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."user_id" = ? ORDER BY "books"."id" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/show.html.erb:23
+  Rendered users/show.html.erb within layouts/application (25.2ms)
+Completed 200 OK in 233ms (Views: 183.2ms | ActiveRecord: 4.3ms)
+
+
+Started GET "/users/sign_in" for 10.0.2.2 at 2020-03-25 07:43:16 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Redirected to http://localhost:3000/users/1
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 5ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/users/1" for 10.0.2.2 at 2020-03-25 07:43:20 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8
+  Rendering users/show.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (1.7ms)
+  Rendered users/_side.html.erb (7.0ms)
+  [1m[36mBook Load (2.8ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."user_id" = ? ORDER BY "books"."id" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/show.html.erb:23
+  Rendered users/show.html.erb within layouts/application (23.2ms)
+Completed 200 OK in 167ms (Views: 144.1ms | ActiveRecord: 4.4ms)
+
+
+Started GET "/users/1" for 10.0.2.2 at 2020-03-25 07:43:21 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8
+  Rendering users/show.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.7ms)
+  Rendered users/_side.html.erb (8.8ms)
+  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."user_id" = ? ORDER BY "books"."id" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/show.html.erb:23
+  Rendered users/show.html.erb within layouts/application (24.0ms)
+Completed 200 OK in 189ms (Views: 163.3ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/users" for 10.0.2.2 at 2020-03-25 07:43:24 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (22.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:15
+  Rendering users/index.html.erb within layouts/application
+  Rendered users/_side.html.erb (8.1ms)
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC[0m
+  ↳ app/views/users/index.html.erb:21
+  Rendered users/index.html.erb within layouts/application (21.5ms)
+Completed 200 OK in 236ms (Views: 152.0ms | ActiveRecord: 25.0ms)
+
+
+Started GET "/books" for 10.0.2.2 at 2020-03-25 07:43:26 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#index as HTML
+  [1m[36mUser Load (8.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:7
+  Rendering books/index.html.erb within layouts/application
+  Rendered users/_side.html.erb (9.9ms)
+  [1m[36mBook Load (1.8ms)[0m  [1m[34mSELECT "books".* FROM "books" ORDER BY "books"."id" DESC[0m
+  ↳ app/views/books/index.html.erb:34
+  Rendered books/index.html.erb within layouts/application (21.8ms)
+Completed 200 OK in 199ms (Views: 162.1ms | ActiveRecord: 11.1ms)
+
+
+Started GET "/users" for 10.0.2.2 at 2020-03-25 07:43:27 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (33.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (6.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:15
+  Rendering users/index.html.erb within layouts/application
+  Rendered users/_side.html.erb (12.9ms)
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC[0m
+  ↳ app/views/users/index.html.erb:21
+  Rendered users/index.html.erb within layouts/application (24.0ms)
+Completed 200 OK in 331ms (Views: 252.3ms | ActiveRecord: 40.5ms)
+
+
+Started GET "/users/1" for 10.0.2.2 at 2020-03-25 07:43:28 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (31.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (21.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8
+  Rendering users/show.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.9ms)
+  Rendered users/_side.html.erb (15.0ms)
+  [1m[36mBook Load (0.7ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."user_id" = ? ORDER BY "books"."id" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/show.html.erb:23
+  Rendered users/show.html.erb within layouts/application (40.0ms)
+Completed 200 OK in 289ms (Views: 193.9ms | ActiveRecord: 53.9ms)
+
+
+Started POST "/books" for 10.0.2.2 at 2020-03-25 07:43:31 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"OiCGE0w1TDT1o4MVriMt8UeSIgYfPvOHyWDrqR1Di4UlJrElrMaGlNl9NzUY2PZX68ULYVGHu4Afa8OmKt+4vw==", "book"=>{"title"=>"a", "body"=>"a"}, "commit"=>"Create Book"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/books_controller.rb:25
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:25
+  [1m[36mBook Create (3.1ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?)[0m  [["title", "a"], ["body", "a"], ["created_at", "2020-03-25 07:43:31.817868"], ["updated_at", "2020-03-25 07:43:31.817868"], ["user_id", 1]]
+  ↳ app/controllers/books_controller.rb:25
+  [1m[35m (4.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/books_controller.rb:25
+Redirected to http://localhost:3000/books/1
+Completed 302 Found in 39ms (ActiveRecord: 10.0ms)
+
+
+Started GET "/books/1" for 10.0.2.2 at 2020-03-25 07:43:31 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[36mBook Load (1.5ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:14
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:15
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:15
+  Rendering books/show.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.4ms)
+  Rendered users/_side.html.erb (11.4ms)
+  Rendered books/show.html.erb within layouts/application (22.3ms)
+Completed 200 OK in 188ms (Views: 170.5ms | ActiveRecord: 2.6ms)
+
+
+Started DELETE "/users/sign_out" for 10.0.2.2 at 2020-03-25 07:44:00 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"bD8dMwAVsfqMFXMu5hIeBmLsrlEVJnKCqh4DnzyhKPiH1GsemvS83PVlSNJZEbx01H6TgjEBmmow4/tP38Qqvw=="}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Redirected to http://localhost:3000/
+Completed 302 Found in 35ms (ActiveRecord: 0.7ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 07:44:00 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.5ms)
+  Rendered homes/top.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 167ms (Views: 161.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:00:20 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.5ms)
+  Rendered homes/top.html.erb within layouts/application (6.7ms)
+Completed 200 OK in 196ms (Views: 186.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:05:59 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.5ms)
+  Rendered homes/top.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 162ms (Views: 156.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:06:03 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.9ms)
+  Rendered homes/top.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 147ms (Views: 141.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:06:06 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (1.6ms)
+  Rendered homes/top.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 160ms (Views: 156.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:06:07 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.6ms)
+  Rendered homes/top.html.erb within layouts/application (7.6ms)
+Completed 200 OK in 183ms (Views: 178.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:06:12 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.7ms)
+  Rendered homes/top.html.erb within layouts/application (8.7ms)
+Completed 200 OK in 184ms (Views: 165.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:06:57 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.5ms)
+  Rendered homes/top.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 152ms (Views: 144.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:06:59 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.6ms)
+  Rendered homes/top.html.erb within layouts/application (6.4ms)
+Completed 200 OK in 150ms (Views: 145.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:06:59 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.7ms)
+  Rendered homes/top.html.erb within layouts/application (7.7ms)
+Completed 200 OK in 162ms (Views: 156.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:07:04 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.6ms)
+  Rendered homes/top.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 168ms (Views: 161.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:07:06 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (1.5ms)
+  Rendered homes/top.html.erb within layouts/application (7.4ms)
+Completed 200 OK in 198ms (Views: 193.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:07:17 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/vagrant/.rbenv/versions/2.5.7/lib/ruby/gems/2.5.0/gems/activerecord-5.2.4.1/lib/active_record/log_subscriber.rb:98
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.4ms)
+  Rendered homes/top.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 909ms (Views: 885.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:07:18 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.9ms)
+  Rendered homes/top.html.erb within layouts/application (8.3ms)
+Completed 200 OK in 241ms (Views: 226.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2020-03-25 08:07:25 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomesController#top as HTML
+  Rendering homes/top.html.erb within layouts/application
+  Rendered layouts/_flash.html.erb (0.6ms)
+  Rendered homes/top.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 199ms (Views: 192.5ms | ActiveRecord: 0.0ms)
+
+
